@@ -130,6 +130,7 @@ export default {
         },
         error: (response) => {
           alert('Something went wrong, please, try again')
+          console.log(sessionStorage)
         }
       })
     },

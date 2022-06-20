@@ -35,7 +35,7 @@
     </v-app-bar>
      <v-row class="mx-3.5">
      <v-col cols="4" class="mx-auto">
-<br><br><br>
+<br><br><br><br>
          <div v-for="book in books" :key="book.id">
           <v-card
          elevation="2"
@@ -47,24 +47,29 @@
          <br><br>
          <v-btn @click="oneBook(book.id)"> Learn more about this book </v-btn><br><br>
          <v-btn v-if="auth" @click="takeBook(book.id)"> Take this book </v-btn>
-        </v-card><br>
+        </v-card><br><br>
          </div>
      </v-col>
    </v-row>
+   <Pagination :total="total" :item="books.length" @page-changing="loadBook"/>
   </v-app>
  </section>
 </template>
 
 <script>
 import $ from 'jquery'
+import Pagination from '../components/Pagination'
 export default {
   name: 'Book',
   data () {
     return {
       books: '',
-      userid: ''
+      userid: '',
+      page: 1,
+      total: 0
     }
   },
+  components: { Pagination },
   computed: {
     auth () {
       var auth
@@ -80,7 +85,7 @@ export default {
         headers: { Authorization: 'Token ' + sessionStorage.getItem('auth_token') }
       })
     }
-    this.loadBook()
+    this.loadBook(this.page)
   },
   methods: {
     goLogin () {
@@ -115,15 +120,16 @@ export default {
         })
       }
     },
-    loadBook () {
+    loadBook (pageNumber) {
       if (sessionStorage.getItem('auth_token')) {
         this.findUser()
       }
       $.ajax({
-        url: 'http://127.0.0.1:8000/library/books/list',
+        url: 'http://127.0.0.1:8000/library/books/list/?page=' + pageNumber,
         type: 'GET',
         success: (response) => {
-          this.books = response
+          this.books = response.results
+          this.total = response.count
         },
         error: (response) => {
           alert('Something went wrong, please, try again')

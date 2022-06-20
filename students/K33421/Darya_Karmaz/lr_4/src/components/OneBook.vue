@@ -142,6 +142,9 @@ export default {
         }
       })
     },
+    readFile (file) {
+      window.open(file, '_blank')
+    },
     back () {
       history.go(-1)
     },

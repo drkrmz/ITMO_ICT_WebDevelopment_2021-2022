@@ -34,7 +34,7 @@
       </v-btn>
     </v-app-bar>
      <v-row class="mx-3.5">
-     <v-col cols="4" class="mx-auto">
+     <v-col cols="4" class="mx-auto"><br><br><br>
          <div v.else v-for="book in books" :key="book.id">
           <v-card v-if="book.user==userid"
          elevation="2"
@@ -42,7 +42,7 @@
          color="black"
          dark
          >
-         <div> {{ book.book.name }} </div>
+         <div>{{ book.book.name }}</div>
          <br><br>
          <v-btn @click="detailBook(book.book.id)"> Learn more about this book </v-btn><br><br>
          <v-btn @click="returnBook(book.id)"> Return this book </v-btn><br><br>
@@ -127,7 +127,7 @@ export default {
         type: 'GET',
         success: (response) => {
           this.books = response
-          console.log(this.empty)
+          console.log(response)
         },
         error: (response) => {
           alert('Something went wrong, please, try again')

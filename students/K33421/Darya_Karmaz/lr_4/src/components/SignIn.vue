@@ -62,8 +62,7 @@ export default {
           tel: this.tel
         },
         success: (response) => {
-          sessionStorage.setItem('auth_token', response.auth_token)
-          this.$router.push({ name: 'Home' })
+          this.setLogin()
         },
         error: (response) => {
           if (response.status === 400) {
@@ -74,6 +73,25 @@ export default {
             } else {
               alert('A user with this username already exists')
             }
+          }
+        }
+      })
+    },
+    setLogin () {
+      $.ajax({
+        url: 'http://127.0.0.1:8000/auth/token/login/',
+        type: 'POST',
+        data: {
+          username: this.login,
+          password: this.password
+        },
+        success: (response) => {
+          sessionStorage.setItem('auth_token', response.auth_token)
+          this.$router.push({ name: 'Home' })
+        },
+        error: (response) => {
+          if (response.status === 400) {
+            alert('Login or password are incorrect')
           }
         }
       })
