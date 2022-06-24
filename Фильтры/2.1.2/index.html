@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>2.1.2 Автоматические фильтры - Course project</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "2.1.2 \u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0444\u0438\u043b\u044c\u0442\u0440\u044b", url: "#_top", children: [
+              {title: "\u0421\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0430 \u043f\u043e \u0434\u0430\u0442\u0435", url: "#_1" },
+              {title: "\u041f\u043e\u0438\u0441\u043a, \u043f\u043e\u0438\u0441\u043a \u043f\u043e \u043f\u043e\u043b\u044f\u043c \u0438\u0437 \u0441\u0432\u044f\u0437\u043d\u043e\u0439 \u0442\u0430\u0431\u043b\u0438\u0446\u044b", url: "#_2" },
+              {title: "C\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0430 \u0432 \u0434\u0438\u0430\u043f\u0430\u0437\u043e\u043d\u0435 \u0446\u0435\u043d, \u0434\u0430\u0442 \u0438\u043b\u0438 \u043a\u0430\u043a\u0438\u0445-\u043b\u0438\u0431\u043e \u0434\u0440\u0443\u0433\u0438\u0445 \u0447\u0438\u0441\u043b\u043e\u0432\u044b\u0445 \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0439", url: "#c-" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="../../search/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%D0%9F%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%8F/2.2.1/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%D0%9F%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%8F/2.2.1/" class="btn btn-xs btn-link">
+        2.2.1 Автоматическая пагинация
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../2.1.1/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../2.1.1/" class="btn btn-xs btn-link">
+        2.1.1 Ручные фильтры
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="212">2.1.2 Автоматические фильтры</h1>
+<h2 id="_1">Сортировка по дате</h2>
+<p><strong>views.py</strong></p>
+<pre><code>class BookOrder(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['year']
+    pagination_class = CustomPagination
+</code></pre>
+<p><strong>urls.py</strong></p>
+<pre><code>re_path('^books/order/$', BookOrder.as_view())
+</code></pre>
+<p><strong>Результат:</strong></p>
+<p><img alt="Фильтры 4" src="/images/filters_4.png" /><img alt="Фильтры 5" src="/images/filters_5.png" /></p>
+<h2 id="_2">Поиск, поиск по полям из связной таблицы</h2>
+<p><strong>views.py</strong></p>
+<pre><code>class BookSearch(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^name', 'author__name']
+</code></pre>
+<p><strong>urls.py</strong></p>
+<pre><code>re_path('^books/search/$', BookSearch.as_view())
+</code></pre>
+<p><strong>Результат поиска:</strong></p>
+<p><img alt="Фильтры 6" src="/images/filters_6.png" />
+<img alt="Фильтры 7" src="/images/filters_7.png" /></p>
+<p><strong>Результат поиска по полям из связной таблицы:</strong></p>
+<p><img alt="Фильтры 8" src="/images/filters_8.png" />
+<img alt="Фильтры 9" src="/images/filters_9.png" /></p>
+<h2 id="c-">Cортировка в диапазоне цен, дат или каких-либо других числовых значений</h2>
+<p><strong>views.py</strong></p>
+<pre><code>class YearFilter(auto_filters.FilterSet):
+    min_year = auto_filters.NumberFilter(field_name=&quot;year&quot;, lookup_expr='gte')
+    max_year = auto_filters.NumberFilter(field_name=&quot;year&quot;, lookup_expr='lte')
+
+    class Meta:
+        model = Book
+        fields = ['min_year', 'max_year']
+
+class BookDate(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = YearFilter
+</code></pre>
+<p><strong>urls.py</strong></p>
+<pre><code>re_path('^books/filters/dj/$', BookDate.as_view())
+</code></pre>
+<p><strong>Результат поиска:</strong></p>
+<p><img alt="Фильтры 10" src="/images/filters_10.png" />
+<img alt="Фильтры 11" src="/images/filters_11.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%D0%9F%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%8F/2.2.1/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%D0%9F%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%8F/2.2.1/" class="btn btn-xs btn-link">
+        2.2.1 Автоматическая пагинация
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../2.1.1/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../2.1.1/" class="btn btn-xs btn-link">
+        2.1.1 Ручные фильтры
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="">Windmill Dark</a> theme by None (noraj).</p>
+</footer>
+
+</body>
+</html>

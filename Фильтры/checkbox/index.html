@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Фильтры с чекбоксом - Course project</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u0424\u0438\u043b\u044c\u0442\u0440\u0430\u0446\u0438\u044f \u0441 \u0447\u0435\u043a\u0431\u043e\u043a\u0441\u043e\u043c", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="../../search/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../range/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../range/" class="btn btn-xs btn-link">
+        Фильтры на диапазон
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-link">
+        Поиск
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="_1">Фильтрация с чекбоксом</h1>
+<p><strong>template</strong></p>
+<pre><code>&lt;v-card flat&gt;
+    &lt;v-card-text&gt;
+    &lt;v-container fluid&gt;
+        &lt;v-row class=&quot;mt-2&quot;&gt;
+          &lt;v-col
+          cols=&quot;12&quot;
+            sm=&quot;4&quot;
+            md=&quot;4&quot;&gt;
+            &lt;b&gt;Choose Author&lt;/b&gt;
+            &lt;div v-for=&quot;author in authors&quot; :key=&quot;author.id&quot;&gt;
+            &lt;v-checkbox
+              v-model=&quot;checked&quot;
+              color=&quot;black&quot;
+              :label=&quot;`${author.name}`&quot;
+              :value=&quot;`${author.name}`&quot;
+              hide-details
+              @change=&quot;loadBook(page, '')&quot;&gt;&lt;/v-checkbox&gt;
+            &lt;/div&gt;
+            &lt;/v-col&gt;
+        &lt;/v-row&gt;
+    &lt;/v-container&gt;
+    &lt;/v-card-text&gt;
+&lt;/v-card&gt;
+</code></pre>
+<p><strong>script</strong></p>
+<pre><code>loadBook (pageNumber, order) {
+      if (sessionStorage.getItem('auth_token')) {
+        this.findUser()
+      }
+      if (order !== undefined) {
+        this.order = order
+      }
+      $.ajax({
+        url: 'http://127.0.0.1:8000/library/books/list/?ordering=' + this.order + '&amp;page=' + pageNumber + '&amp;search=' + this.search + '&amp;author=' + this.checked + '&amp;min_year=' + this.range[0] + '&amp;max_year=' + this.range[1],
+        type: 'GET',
+        success: (response) =&gt; {
+          this.createRange()
+          this.books = response.results
+          this.total = response.count
+        },
+        error: (response) =&gt; {
+          alert('Something went wrong, please, try again')
+        }
+      })
+    }
+</code></pre>
+<p><img alt="Чекбокс" src="/images/checkbox.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../range/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../range/" class="btn btn-xs btn-link">
+        Фильтры на диапазон
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-link">
+        Поиск
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="">Windmill Dark</a> theme by None (noraj).</p>
+</footer>
+
+</body>
+</html>

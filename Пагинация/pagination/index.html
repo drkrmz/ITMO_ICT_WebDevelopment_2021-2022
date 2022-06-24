@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Пагинация - Course project</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u041f\u0430\u0433\u0438\u043d\u0430\u0446\u0438\u044f", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="../../search/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-link">
+        Поиск
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0/sort/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0/sort/" class="btn btn-xs btn-link">
+        Сортировка
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="_1">Пагинация</h1>
+<p>Для пагинации был создан компонент Pagination.vue</p>
+<p><strong>Pagination.vue</strong></p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+    &lt;v-pagination
+      v-model=&quot;currentPage&quot;
+      :length=&quot;totalPages&quot;
+      white
+      color=&quot;black&quot;
+      @input=&quot;changePage(currentPage)&quot;
+    &gt;&lt;/v-pagination&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'Pagination',
+  props: ['total', 'item', 'ordered', 'check', 'searching'],
+  data () {
+    return {
+      search: this.searching,
+      order: this.ordered,
+      checked: this.check,
+      currentPage: 1
+    }
+  },
+  computed: {
+    totalPages () {
+      return this.item !== 2 ? Math.ceil(this.total / 2) : Math.ceil(this.total / this.item)
+    }
+  },
+  methods: {
+    changePage (pageNumber) {
+      this.currentPage = pageNumber
+      this.$emit('page-changing', pageNumber)
+    }
+  }
+}
+&lt;/script&gt;
+
+</code></pre>
+<p>В основном компоненте пагинация была использована так:</p>
+<p><strong>template</strong></p>
+<pre><code>&lt;Pagination :total=&quot;total&quot; :item=&quot;books.length&quot; :ordered=&quot;order&quot; :searching=&quot;search&quot; :check=&quot;checked&quot; @page-changing=&quot;loadBook&quot;/&gt;
+</code></pre>
+<p><strong>script</strong></p>
+<pre><code>import Pagination from '../components/Pagination'
+export default {
+    return {
+        ...
+        page: 1,
+        total: 0,
+        ...
+    }
+},
+components: { Pagination },
+</code></pre>
+<p><img alt="Пагинация" src="/images/all.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../%D0%9F%D0%BE%D0%B8%D1%81%D0%BA/search/" class="btn btn-xs btn-link">
+        Поиск
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0/sort/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0/sort/" class="btn btn-xs btn-link">
+        Сортировка
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="">Windmill Dark</a> theme by None (noraj).</p>
+</footer>
+
+</body>
+</html>
