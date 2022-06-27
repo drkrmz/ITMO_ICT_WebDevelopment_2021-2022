@@ -83,7 +83,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h1 id="_1">Контейнеризация</h1>
 <p>Были созданы Docker файлы для запуска бэкенда и фронтенда:</p>
-<pre><code class="language-sh">FROM python:3.8
+<pre><code class="language-sh">FROM python:3
 
 RUN apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get autoremove &amp;&amp; apt-get autoclean
 
@@ -92,7 +92,7 @@ COPY . /library
 WORKDIR /library
 
 RUN pip install --upgrade pip 
-RUN pip install django==1.11a1
+RUN pip install django
 RUN pip install djangorestframework
 RUN pip install django-cors-headers
 RUN pip install djoser
@@ -127,11 +127,15 @@ CMD [&quot;npm&quot;, &quot;run&quot;, &quot;serve&quot;]
       POSTGRES_DB: &quot;postgres&quot;
       POSTGRES_USER: &quot;postgres&quot;
       POSTGRES_PASSWORD: &quot;postgres&quot;
+    volumes:
+      - ./dbs/postgres-data:/var/lib/postgresql
     ports:
       - &quot;5432:5432&quot;
 
   vue:
     build: ./project
+    depends_on:
+      - django
     ports:
       - 8082:8080
 </code></pre>
