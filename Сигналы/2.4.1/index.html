@@ -92,7 +92,7 @@ def handle_new_author(sender, **kwargs):
     if kwargs['created']:
         print('New author was added')
 </code></pre>
-<p><img alt="Сигналы 1" src="/images/signals_1.png" /></p>
+<p><img alt="Сигналы 1" src="../../images/signals_1.png" /></p>
 <h2 id="_2">Сигнал, который сохраняет значения выбранных полей в таблице в специальные поля для хранения предыдущих значений при обновлении объекта</h2>
 <p><strong>models.py</strong></p>
 <pre><code>@receiver(pre_save, sender=Room)
@@ -101,7 +101,7 @@ def handle_room_change(sender, instance, update_fields=['capacity'], **kwargs):
     new = instance.capacity
     print('Old: {}\nNew: {}'.format(old, new))
 </code></pre>
-<p><img alt="Сигналы 2" src="/images/signals_2.png" /></p>
+<p><img alt="Сигналы 2" src="../../images/signals_2.png" /></p>
 <h2 id="_3">Сигнал, который при удалении объекта записывает информацию об удалении в лог, реализованный любым образом</h2>
 <p><strong>models.py</strong></p>
 <pre><code>@receiver(pre_delete, sender=Author)
@@ -110,7 +110,7 @@ def handle_author_delete(sender, **kwargs):
     file.write(str(kwargs['instance']) + ' was deleted')
     file.close()
 </code></pre>
-<p><img alt="Сигналы 3" src="/images/signals_3.png" /></p>
+<p><img alt="Сигналы 3" src="../../images/signals_3.png" /></p>
 
   <br>
     

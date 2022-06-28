@@ -98,7 +98,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>re_path('^books/order/$', BookOrder.as_view())
 </code></pre>
 <p><strong>Результат:</strong></p>
-<p><img alt="Фильтры 4" src="/images/filters_4.png" /><img alt="Фильтры 5" src="/images/filters_5.png" /></p>
+<p><img alt="Фильтры 4" src="../../images/filters_4.png" /><img alt="Фильтры 5" src="../../images/filters_5.png" /></p>
 <h2 id="_2">Поиск, поиск по полям из связной таблицы</h2>
 <p><strong>views.py</strong></p>
 <pre><code>class BookSearch(generics.ListAPIView):
@@ -111,11 +111,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>re_path('^books/search/$', BookSearch.as_view())
 </code></pre>
 <p><strong>Результат поиска:</strong></p>
-<p><img alt="Фильтры 6" src="/images/filters_6.png" />
-<img alt="Фильтры 7" src="/images/filters_7.png" /></p>
+<p><img alt="Фильтры 6" src="../../images/filters_6.png" />
+<img alt="Фильтры 7" src="../../images/filters_7.png" /></p>
 <p><strong>Результат поиска по полям из связной таблицы:</strong></p>
-<p><img alt="Фильтры 8" src="/images/filters_8.png" />
-<img alt="Фильтры 9" src="/images/filters_9.png" /></p>
+<p><img alt="Фильтры 8" src="../../images/filters_8.png" />
+<img alt="Фильтры 9" src="../../images/filters_9.png" /></p>
 <h2 id="c-">Cортировка в диапазоне цен, дат или каких-либо других числовых значений</h2>
 <p><strong>views.py</strong></p>
 <pre><code>class YearFilter(auto_filters.FilterSet):
@@ -136,8 +136,8 @@ class BookDate(generics.ListAPIView):
 <pre><code>re_path('^books/filters/dj/$', BookDate.as_view())
 </code></pre>
 <p><strong>Результат поиска:</strong></p>
-<p><img alt="Фильтры 10" src="/images/filters_10.png" />
-<img alt="Фильтры 11" src="/images/filters_11.png" /></p>
+<p><img alt="Фильтры 10" src="../../images/filters_10.png" />
+<img alt="Фильтры 11" src="../../images/filters_11.png" /></p>
 
   <br>
     

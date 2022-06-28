@@ -98,7 +98,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>re_path('^books/filter/$', BookYearList.as_view())
 </code></pre>
 <p><strong>Результат:</strong></p>
-<p><img alt="Фильтры 1" src="/images/filters_1.png" /></p>
+<p><img alt="Фильтры 1" src="../../images/filters_1.png" /></p>
 <h2 id="2-url-">Фильтр, который принимает 2 параметра из url-адреса и выводит отфильтрованные данные</h2>
 <p><strong>views.py</strong></p>
 <pre><code>class BookNameYear(generics.ListAPIView):
@@ -116,7 +116,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>re_path('^books/filters/$', BookNameYear.as_view())
 </code></pre>
 <p><strong>Результат:</strong></p>
-<p><img alt="Фильтры 2" src="/images/filters_2.png" /></p>
+<p><img alt="Фильтры 2" src="../../images/filters_2.png" /></p>
 <h2 id="2-url-_1">Фильтр, принимает 2 параметра из url-адреса и выводит отфильтрованные данные, если пользователь авторизован и неотфильтрованные, если не авторизован</h2>
 <p><strong>views.py</strong></p>
 <pre><code>class BookNameYearUser(generics.ListAPIView):
@@ -135,7 +135,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>re_path('^books/filters/user/$', BookNameYearUser.as_view())
 </code></pre>
 <p><strong>Результат:</strong></p>
-<p><img alt="Фильтры 3" src="/images/filters_3.png" /></p>
+<p><img alt="Фильтры 3" src="../../images/filters_3.png" /></p>
 
   <br>
     
